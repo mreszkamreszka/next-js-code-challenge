@@ -1,0 +1,34 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  # Check if the security.txt file has an email address other than replace-me@example.com
+  - bash: |
+      # Check if the security.txt file contains the specified contact email or url
+      if grep -q 'Contact: mailto:replace-this@example.com' public/.well-known/security.txt; then
+          echo "Please replace example contact email with a valid email or url in security.txt"
+          exit 1
+      else
+          echo "Correct non-default contact email in security.txt found. Replace with a valid email, url or both."
+      fi
+    displayName: 'Check security.txt for Contact Email'
+
+  # Check if the security.txt file has an expiry date in the future
+  - bash: |
+      # Extract the Expires date
+      expires=$(grep 'Expires:' public/.well-known/security.txt | sed 's/Expires: //' | tr -d '\r')
+
+      # Compare the Expires date with the current date
+      current_date=$(date +%s)
+      expires_date=$(date -d "$expires" +%s)
+
+      if [ $expires_date -gt $current_date ]; then
+          echo "Expires date is in the future"
+      else
+          echo "Expires date is not in the future"
+          exit 1
+      fi
+    displayName: 'Check security.txt for Contact Email and Future Expiry Date'

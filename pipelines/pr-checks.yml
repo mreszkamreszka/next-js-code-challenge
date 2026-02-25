@@ -1,0 +1,93 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - checkout: self
+    displayName: Checkout PR branch
+
+  - task: NodeTool@0
+    displayName: Install Node.js
+    inputs:
+      versionSource: 'fromFile'
+      versionFilePath: './.nvmrc'
+
+  - task: Cache@2
+    displayName: Cache node_modules
+    inputs:
+      key: 'npm | "$(Agent.OS)" | $(Build.SourcesDirectory)/package-lock.json'
+      path: $(Build.SourcesDirectory)/node_modules
+      cacheHitVar: CACHE_RESTORED
+
+  - task: Npm@1
+    displayName: Install npm packages
+    inputs:
+      command: 'custom'
+      customCommand: 'ci --audit=false'
+      condition: ne(variables.CACHE_RESTORED, 'true')
+
+  - task: Npm@1
+    displayName: Audit production packages
+    inputs:
+      command: 'custom'
+      customCommand: 'audit --omit=dev'
+
+  - script: |
+      npx lockfile-lint --path package-lock.json --allowed-hosts registry.npmjs.org github.com
+    displayName: Lint package lock files
+
+  - task: Npm@1
+    displayName: Prettier check
+    inputs:
+      command: 'custom'
+      customCommand: 'run prettier'
+
+  - task: Npm@1
+    displayName: ESLint check
+    inputs:
+      command: 'custom'
+      customCommand: 'run lint:eslint'
+
+  - task: Npm@1
+    displayName: Stylelint check
+    inputs:
+      command: 'custom'
+      customCommand: 'run lint:css'
+
+  - task: Npm@1
+    displayName: TypeScript check
+    inputs:
+      command: 'custom'
+      customCommand: 'run lint:tsc'
+
+  - task: Npm@1
+    displayName: Unit test with code coverage
+    inputs:
+      command: 'custom'
+      customCommand: 'run test:coverage -- --reporter=default --reporter=junit --outputFile=reports/junit.xml'
+
+  - task: PublishTestResults@2
+    displayName: Publish unit test result
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '$(System.DefaultWorkingDirectory)/reports/junit.xml'
+
+  - task: PublishCodeCoverageResults@2
+    displayName: Publish code coverage result
+    inputs:
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml'
+      failIfCoverageEmpty: true
+
+  - task: Cache@2
+    displayName: Cache .next/cache
+    inputs:
+      key: next | $(Agent.OS) | package-lock.json
+      path: '$(System.DefaultWorkingDirectory)/.next/cache'
+
+  - task: Npm@1
+    displayName: Build project
+    inputs:
+      command: 'custom'
+      customCommand: 'run build'

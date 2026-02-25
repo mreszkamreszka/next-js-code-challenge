@@ -1,0 +1,38 @@
+@use '@/styles/abstracts' as *;
+
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: -999px;
+
+  overflow: hidden;
+
+  width: 1px;
+  height: 1px;
+  padding: var(--spacing-8) var(--spacing-12);
+
+  color: var(--tc-background-primary);
+  text-decoration: none;
+  white-space: nowrap;
+
+  opacity: 0;
+  background: var(--tc-text-primary);
+  clip: rect(0, 0, 0, 0);
+  border-radius: var(--radius-md);
+
+  &:focus-visible {
+    top: var(--spacing-8);
+    left: var(--spacing-8);
+
+    width: auto;
+    height: auto;
+
+    opacity: 1;
+    clip: auto;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: var(--transition-duration-short);
+    transition-property: outline, opacity;
+  }
+}

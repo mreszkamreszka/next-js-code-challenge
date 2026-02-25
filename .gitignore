@@ -1,0 +1,36 @@
+# dependencies
+node_modules
+
+# build
+.next
+out
+dist
+build
+.build
+
+# local env files
+.env*
+!.env.local
+!.env.example
+
+# debug
+*.log
+
+# cache
+.cache
+.eslintcache
+.stylelintcache
+
+# typescript
+*.tsbuildinfo
+
+# testing
+coverage
+reports
+
+# misc
+.DS_Store
+*.zip
+
+# IDE
+.idea
