@@ -1,7 +1,12 @@
 export type AbilityDTO = {
-  name: string;
+  ability: { name: string };
   slot: number;
   is_hidden: boolean;
+};
+
+export type StatDTO = {
+  base_stat: number;
+  stat: { name: string };
 };
 
 export type SpritesDTO = {
@@ -30,6 +35,7 @@ export type PokemonDTO = {
   name: string;
   order: number;
   sprites: SpritesDTO;
+  stats: StatDTO[];
   weight: number;
   types: {
     slot: number;

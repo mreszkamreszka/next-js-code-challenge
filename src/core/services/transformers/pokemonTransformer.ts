@@ -2,12 +2,14 @@ import type {
   Pokemon,
   PokemonAbility,
   PokemonSprites,
+  PokemonStat,
 } from '@/core/models/pokemon';
 import type {
   AbilityDTO,
   PokemonDTO,
   PokemonListDTO,
   SpritesDTO,
+  StatDTO,
 } from '@/core/services/dtoTypes/pokemonDto';
 
 function transformType(response: { type: { name: string } }) {
@@ -16,9 +18,16 @@ function transformType(response: { type: { name: string } }) {
 
 function transformAbility(response: AbilityDTO): PokemonAbility {
   return {
-    name: response.name,
+    name: response.ability.name,
     isHidden: response.is_hidden,
     slot: response.slot,
+  };
+}
+
+function transformStat(response: StatDTO): PokemonStat {
+  return {
+    name: response.stat.name,
+    baseStat: response.base_stat,
   };
 }
 
@@ -45,6 +54,9 @@ export function transformPokemon(response: PokemonDTO): Pokemon {
     id: response.id,
     types: response.types.map(transformType),
     weight: response.weight,
+    height: response.height,
+    baseExperience: response.base_experience,
+    stats: response.stats.map(transformStat),
   };
 
   return pokemon;

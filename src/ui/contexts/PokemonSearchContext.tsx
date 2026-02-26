@@ -41,15 +41,13 @@ export const PokemonSearchProvider = ({
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const baseList = searchTerm ? fullList : pageList;
+  const filteredList = useMemo(() => {
+    const source = searchTerm ? fullList : pageList;
 
-  const filteredList = useMemo(
-    () =>
-      baseList.filter((name: string) =>
-        name.toLowerCase().includes(searchTerm.toLowerCase().trim()),
-      ),
-    [baseList, searchTerm],
-  );
+    return source.filter((name: string) =>
+      name.toLowerCase().includes(searchTerm.toLowerCase().trim()),
+    );
+  }, [searchTerm, fullList, pageList]);
 
   const loadMore = useCallback(() => {
     if (loadingPage || searchTerm) return;

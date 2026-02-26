@@ -5,5 +5,25 @@
   "Metadata": {
     "title": "Next Code Challenge",
     "description": "Next Code Challenge stworzony przez Triple."
+  },
+  "PokemonCardMenu": {
+    "openPokemon": "Otwórz Pokémona",
+    "addToFavorites": "Dodaj do ulubionych"
+  },
+  "PokemonDetailDialog": {
+    "about": "O mnie",
+    "stats": "Statystyki",
+    "evolution": "Ewolucja",
+    "name": "Nazwa",
+    "id": "ID",
+    "baseExperience": "Baza",
+    "weight": "Waga",
+    "height": "Wysokość",
+    "types": "Typy",
+    "abilities": "Zdolności",
+    "loading": "Ładowanie...",
+    "notFound": "Nie znaleziono Pokémona",
+    "close": "Zamknij",
+    "evolutionPlaceholder": "Dane o ewolucji wkrótce"
   }
 }

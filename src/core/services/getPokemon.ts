@@ -3,7 +3,7 @@ import type { PokemonDTO } from '@/core/services/dtoTypes/pokemonDto';
 import { transformPokemon } from '@/core/services/transformers/pokemonTransformer';
 import api from './apiService';
 
-async function getPokemon(name: string): Promise<Pokemon> {
+async function getPokemon(name: string): Promise<Pokemon | null> {
   const response = await api.get<PokemonDTO>(`/pokemon/${name}`);
   return transformPokemon(response.data);
 }

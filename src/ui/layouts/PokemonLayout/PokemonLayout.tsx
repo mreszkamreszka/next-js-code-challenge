@@ -33,7 +33,7 @@ const PokemonLayout: React.FC = () => {
   }, [loadMore, loading]);
 
   return (
-    <section className="p-10">
+    <section className="w-full p-10">
       <h1>{t('title')}</h1>
       {loading && <p>Loading...</p>}
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

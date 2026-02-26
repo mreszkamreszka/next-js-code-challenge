@@ -14,5 +14,25 @@
   "Navigation": {
     "btnPokemon": "Pokémon",
     "btnFavorites": "Favorites"
+  },
+  "PokemonCardMenu": {
+    "openPokemon": "Open Pokémon",
+    "addToFavorites": "Add to favorites"
+  },
+  "PokemonDetailDialog": {
+    "about": "About",
+    "stats": "Stats",
+    "evolution": "Evolution",
+    "name": "Name",
+    "id": "ID",
+    "baseExperience": "Base",
+    "weight": "Weight",
+    "height": "Height",
+    "types": "Types",
+    "abilities": "Abilities",
+    "loading": "Loading...",
+    "notFound": "Pokémon not found",
+    "close": "Close",
+    "evolutionPlaceholder": "Evolution data coming soon"
   }
 }

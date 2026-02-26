@@ -4,6 +4,11 @@ export type PokemonAbility = {
   isHidden: boolean;
 };
 
+export type PokemonStat = {
+  name: string;
+  baseStat: number;
+};
+
 export type PokemonSprites = {
   backDefault: string;
   backFemale?: string;
@@ -24,4 +29,7 @@ export type Pokemon = {
   sprites: PokemonSprites;
   types: string[];
   weight: number;
+  height: number;
+  baseExperience: number;
+  stats: PokemonStat[];
 };

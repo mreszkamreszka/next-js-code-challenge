@@ -5,5 +5,25 @@
   "Metadata": {
     "title": "Next Code Challenge",
     "description": "Next Code Challenge gemaakt door Triple."
+  },
+  "PokemonCardMenu": {
+    "openPokemon": "Open Pokémon",
+    "addToFavorites": "Toevoegen aan favorieten"
+  },
+  "PokemonDetailDialog": {
+    "about": "Over",
+    "stats": "Stats",
+    "evolution": "Evolutie",
+    "name": "Naam",
+    "id": "ID",
+    "baseExperience": "Basis",
+    "weight": "Gewicht",
+    "height": "Hoogte",
+    "types": "Types",
+    "abilities": "Vaardigheden",
+    "loading": "Laden...",
+    "notFound": "Pokémon niet gevonden",
+    "close": "Sluiten",
+    "evolutionPlaceholder": "Evolutiedata binnenkort"
   }
 }
