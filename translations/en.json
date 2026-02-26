@@ -1,9 +1,18 @@
 {
   "Homepage": {
-    "title": "Pokémons"
+    "title": "All Pokémons"
   },
   "Metadata": {
     "title": "Next Code Challenge",
     "description": "Next Code Challenge created by Triple."
+  },
+  "Sidebar": {
+    "copyright": "Copyright © 2022 Triple. All rights reserved.",
+    "trademark": "Pokémon and Pokémon character names are trademarks of Nintendo.",
+    "search": "Search"
+  },
+  "Navigation": {
+    "btnPokemon": "Pokémon",
+    "btnFavorites": "Favorites"
   }
 }

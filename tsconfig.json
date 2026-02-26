@@ -41,5 +41,6 @@
     "**/*.tsx",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "coverage", ".next"]
+  "exclude": ["node_modules", "coverage", ".next"],
+  "types": ["vite-plugin-svgr/client"]
 }

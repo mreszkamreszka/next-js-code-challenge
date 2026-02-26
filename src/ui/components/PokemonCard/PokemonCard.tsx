@@ -1,10 +1,8 @@
 import type { FC } from 'react';
 import Image from 'next/image';
-import Button from '@/components/Button/Button';
-import { Flex } from '@/components/Flex/Flex';
+import { Link } from '@/core/navigation/navigation';
+import DotsSVG from '@/public/assets/dots.svg';
 import usePokemon from '@/ui/hooks/services/usePokemon';
-import { Card, CardContent, CardHeader } from '../Card/Card';
-import Typography from '../Typography/Typography';
 
 type PokemonCardProps = {
   pokemonName: string;
@@ -18,34 +16,44 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemonName }) => {
   }
 
   return (
-    <Button className="w-full">
-      <Card variant="outline" className="border-none bg-background p-5 shadow">
-        <CardHeader className="p-0">
-          <Flex className="flex-row items-center justify-between gap-2">
-            <Image
-              src="/assets/pokemonlogo.png"
-              alt="pokemonlogo"
-              width={100}
-              height={100}
-            />
-            <Typography>{pokemon.name}</Typography>
-          </Flex>
-        </CardHeader>
-        <CardContent className="flex flex-col px-0 py-4">
-          {pokemon.sprites.frontDefault ? (
-            <Image
-              src={pokemon.sprites.frontDefault}
-              alt={pokemon.name}
-              width={100}
-              height={100}
-            />
-          ) : (
-            // TODO: Add a placeholder image
-            <div className="h-24 w-24 bg-gray-200" />
-          )}
-        </CardContent>
-      </Card>
-    </Button>
+    <div className="overflow-hidden rounded-sm bg-white shadow-md transition hover:shadow-xl">
+      {/* Top section */}
+      <div className="relative flex h-56 items-center justify-center bg-[#F6F6FF]">
+        <span className="absolute top-3 left-3 rounded-xs bg-violet-600 px-2 py-1 text-xs text-white">
+          {pokemon.id}
+        </span>
+        {pokemon.sprites.frontDefault ? (
+          <Image
+            src={pokemon.sprites.frontDefault}
+            alt={pokemon.name}
+            width={100}
+            height={100}
+            className="h-36 object-contain"
+          />
+        ) : (
+          // TODO: Add a placeholder image
+          <div className="h-36 bg-gray-200 object-contain" />
+        )}
+      </div>
+
+      {/* Bottom section */}
+      <div className="flex items-center justify-between px-4 py-4">
+        <h2 className="truncate font-semibold text-slate-800 capitalize">
+          {pokemon.name}
+        </h2>
+
+        <button className="text-gray-400 hover:text-gray-600">
+          <Image
+            src={DotsSVG}
+            alt="Pokémon"
+            width={20}
+            height={20}
+            className="h-5 w-5"
+          />
+          <Link href={`/${pokemon.name}`}>{pokemon.name}</Link>
+        </button>
+      </div>
+    </div>
   );
 };
 
