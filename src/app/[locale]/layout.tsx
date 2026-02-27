@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from 'next';
-import { Locale, NextIntlClientProvider } from 'next-intl';
+import type { Locale} from 'next-intl';
+import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import MainLayout from '@/layouts/MainLayout/MainLayout';
+import { FavoritesProvider } from '@/ui/contexts/FavoritesContext';
 
 import '@/styles/global.css';
 
@@ -57,7 +59,9 @@ export default async function RootLayout({
     <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages}>
-          <MainLayout>{children}</MainLayout>
+          <FavoritesProvider>
+            <MainLayout>{children}</MainLayout>
+          </FavoritesProvider>
         </NextIntlClientProvider>
       </body>
     </html>

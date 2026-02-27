@@ -1,27 +1,29 @@
 'use client';
 
-import { ExternalLink, Heart } from 'lucide-react';
+import { ExternalLink, Heart, HeartOff } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
-import { Link } from '@/core/navigation/navigation';
+import { useFavorites } from '@/ui/contexts/FavoritesContext';
 import cn from '@/ui/utils/cn';
 
 type PokemonCardMenuProps = {
   pokemonName: string;
+  pokemonId: number;
   onOpenDetail?: () => void;
-  onAddToFavorites?: (pokemonName: string) => void;
   trigger: React.ReactNode;
   className?: string;
 };
 
 const PokemonCardMenu: React.FC<PokemonCardMenuProps> = ({
   pokemonName,
+  pokemonId,
   onOpenDetail,
-  onAddToFavorites,
   trigger,
   className,
 }) => {
   const t = useTranslations('PokemonCardMenu');
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+  const favorite = isFavorite(pokemonId);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -70,30 +72,36 @@ const PokemonCardMenu: React.FC<PokemonCardMenuProps> = ({
             <ExternalLink className="h-4 w-4 shrink-0" />
             {t('openPokemon')}
           </button>
-          {onAddToFavorites ? (
-            <button
-              type="button"
-              role="menuitem"
-              className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-slate-800 hover:bg-slate-50"
-              onClick={() => {
-                onAddToFavorites(pokemonName);
-                setIsOpen(false);
-              }}
-            >
-              <Heart className="h-4 w-4 shrink-0" />
-              {t('addToFavorites')}
-            </button>
-          ) : (
-            <Link
-              href="/favorites"
-              role="menuitem"
-              className="flex items-center gap-3 px-4 py-2 text-sm text-slate-800 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Heart className="h-4 w-4 shrink-0" />
-              {t('addToFavorites')}
-            </Link>
-          )}
+          <button
+            type="button"
+            role="menuitem"
+            aria-label={
+              favorite
+                ? `Remove ${pokemonName} from favorites`
+                : `Add ${pokemonName} to favorites`
+            }
+            className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-slate-800 hover:bg-slate-50"
+            onClick={() => {
+              if (favorite) {
+                removeFavorite(pokemonId);
+              } else {
+                addFavorite(pokemonId);
+              }
+              setIsOpen(false);
+            }}
+          >
+            {favorite ? (
+              <>
+                <HeartOff className="h-4 w-4 shrink-0" />
+                {t('removeFromFavorites')}
+              </>
+            ) : (
+              <>
+                <Heart className="h-4 w-4 shrink-0" />
+                {t('addToFavorites')}
+              </>
+            )}
+          </button>
         </div>
       )}
     </div>

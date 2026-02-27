@@ -46,7 +46,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemonName }) => {
     <div className="rounded-sm bg-white shadow-md transition hover:shadow-xl">
       {/* Top section */}
       <button
-        className="relative flex h-56 cursor-pointer items-center justify-center bg-[#F6F6FF]"
+        className="relative flex h-56 w-full cursor-pointer items-center justify-center bg-[#F6F6FF]"
         onClick={openDetail}
         onKeyDown={e => e.key === 'Enter' && openDetail()}
       >
@@ -76,6 +76,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemonName }) => {
         <div>
           <PokemonCardMenu
             pokemonName={pokemon.name}
+            pokemonId={pokemon.id}
             trigger={
               <Image
                 src={DotsSVG}

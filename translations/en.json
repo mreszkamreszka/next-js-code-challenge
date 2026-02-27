@@ -17,7 +17,11 @@
   },
   "PokemonCardMenu": {
     "openPokemon": "Open Pokémon",
-    "addToFavorites": "Add to favorites"
+    "addToFavorites": "Add to favorites",
+    "removeFromFavorites": "Remove from favorites"
+  },
+  "Favorites": {
+    "empty": "No favorites yet."
   },
   "PokemonDetailDialog": {
     "about": "About",
