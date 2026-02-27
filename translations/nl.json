@@ -12,7 +12,8 @@
     "removeFromFavorites": "Verwijderen uit favorieten"
   },
   "Favorites": {
-    "empty": "Nog geen favorieten."
+    "empty": "Nog geen favorieten.",
+    "noSearchResults": "Geen favorieten komen overeen met je zoekopdracht."
   },
   "PokemonDetailDialog": {
     "about": "Over",

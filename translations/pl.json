@@ -12,7 +12,8 @@
     "removeFromFavorites": "Usuń z ulubionych"
   },
   "Favorites": {
-    "empty": "Brak ulubionych."
+    "empty": "Brak ulubionych.",
+    "noSearchResults": "Żaden ulubiony nie pasuje do wyszukiwania."
   },
   "PokemonDetailDialog": {
     "about": "O mnie",

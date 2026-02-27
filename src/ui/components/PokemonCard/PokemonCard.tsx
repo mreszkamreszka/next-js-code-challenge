@@ -62,7 +62,6 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemonName }) => {
             className="h-36 object-contain"
           />
         ) : (
-          // TODO: Add a placeholder image
           <div className="h-36 bg-gray-200 object-contain" />
         )}
       </button>

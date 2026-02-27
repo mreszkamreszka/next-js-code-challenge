@@ -21,7 +21,8 @@
     "removeFromFavorites": "Remove from favorites"
   },
   "Favorites": {
-    "empty": "No favorites yet."
+    "empty": "No favorites yet.",
+    "noSearchResults": "No favorites match your search."
   },
   "PokemonDetailDialog": {
     "about": "About",

@@ -1,12 +1,27 @@
 'use client';
+
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 import SearchSVG from '@/public/assets/search.svg';
-import { usePokemonSearch } from '@/ui/contexts/PokemonSearchContext';
+import { useSearch } from '@/ui/contexts/SearchContext';
+
+const DEBOUNCE_MS = 300;
 
 const Search = () => {
   const t = useTranslations('Sidebar');
-  const { searchTerm, setSearchTerm } = usePokemonSearch();
+  const { searchTerm, setSearchTerm } = useSearch();
+  const [inputValue, setInputValue] = useState(searchTerm);
+  const [debouncedInput, setDebouncedInput] = useState(searchTerm);
+
+  useEffect(() => {
+    const id = setTimeout(() => setDebouncedInput(inputValue), DEBOUNCE_MS);
+    return () => clearTimeout(id);
+  }, [inputValue]);
+
+  useEffect(() => {
+    setSearchTerm(debouncedInput);
+  }, [debouncedInput, setSearchTerm]);
 
   return (
     <div className="relative mb-8">
@@ -21,8 +36,8 @@ const Search = () => {
         type="text"
         placeholder={t('search')}
         className="w-full rounded-xl bg-slate-100 py-3 pr-4 pl-12 focus:ring-2 focus:ring-violet-500 focus:outline-none"
-        value={searchTerm}
-        onChange={event => setSearchTerm(event.target.value)}
+        value={inputValue}
+        onChange={event => setInputValue(event.target.value)}
       />
     </div>
   );
