@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { useSearch } from '@/ui/contexts/SearchContext';
-import { useAllPokemonList } from '@/ui/hooks/services/useAllPokemonList';
+import useAllPokemonList from '@/ui/hooks/services/useAllPokemonList';
 
 export default function useFilteredPokemonList() {
   const { data: allPokemon = [], isLoading } = useAllPokemonList();
@@ -12,13 +12,12 @@ export default function useFilteredPokemonList() {
 
   const filteredList = useMemo(() => {
     const trimmed = searchTerm.toLowerCase().trim();
-    const names = allPokemon.map(p => p.name);
 
     if (!trimmed) {
-      return names;
+      return allPokemon;
     }
 
-    return names.filter(name => name.toLowerCase().includes(trimmed));
+    return allPokemon.filter(name => name.toLowerCase().includes(trimmed));
   }, [searchTerm, allPokemon]);
 
   return {

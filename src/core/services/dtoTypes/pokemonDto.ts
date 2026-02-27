@@ -49,5 +49,3 @@ export type PokemonListDTO = {
   previous: string | null;
   results: PokemonDefinitionDTO[];
 };
-
-export type PokemonListItem = { id: number; name: string };

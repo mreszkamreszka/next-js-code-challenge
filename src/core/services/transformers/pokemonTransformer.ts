@@ -8,7 +8,6 @@ import type {
   AbilityDTO,
   PokemonDTO,
   PokemonListDTO,
-  PokemonListItem,
   SpritesDTO,
   StatDTO,
 } from '@/core/services/dtoTypes/pokemonDto';
@@ -65,18 +64,6 @@ export function transformPokemon(response: PokemonDTO): Pokemon {
 
 export function transformPokemonNames(pokemons: PokemonListDTO): string[] {
   return pokemons.results.map(pokemon => pokemon.name);
-}
-
-export function transformPokemonListItems(
-  pokemons: PokemonListDTO | null | undefined,
-): PokemonListItem[] {
-  if (!pokemons?.results) return [];
-
-  return pokemons.results.map(p => {
-    const idMatch = p.url.match(/\/pokemon\/(\d+)\/?$/);
-    const id = idMatch ? parseInt(idMatch[1], 10) : 0;
-    return { id, name: p.name };
-  });
 }
 
 // export function transformPokemonEvolutionChain(

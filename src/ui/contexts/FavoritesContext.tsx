@@ -11,53 +11,58 @@ import {
 const STORAGE_KEY = 'pokemon-favorites';
 
 type FavoritesContextValue = {
-  favorites: number[];
-  addFavorite: (id: number) => void;
-  removeFavorite: (id: number) => void;
-  isFavorite: (id: number) => boolean;
+  favorites: string[];
+  addFavorite: (name: string) => void;
+  removeFavorite: (name: string) => void;
+  isFavorite: (name: string) => boolean;
 };
 
 const FavoritesContext = createContext<FavoritesContextValue | undefined>(
   undefined,
 );
 
-function loadFromStorage(): number[] {
+function loadFromStorage(): string[] {
   if (typeof window === 'undefined') return [];
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? (JSON.parse(stored) as number[]) : [];
+    if (!stored) return [];
+    const parsed = JSON.parse(stored) as (string | number)[];
+    return parsed.map(item => String(item));
   } catch {
     return [];
   }
 }
 
-function saveToStorage(ids: number[]) {
+function saveToStorage(names: string[]) {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(names));
 }
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
-  const [favorites, setFavorites] = useState<number[]>(loadFromStorage());
+  const [favorites, setFavorites] = useState<string[]>(loadFromStorage());
 
-  const addFavorite = useCallback((id: number) => {
+  const addFavorite = useCallback((name: string) => {
+    const normalized = name.toLowerCase();
     setFavorites(prev => {
-      if (prev.includes(id)) return prev;
-      const next = [...prev, id];
+      if (prev.some(f => f.toLowerCase() === normalized)) return prev;
+      const next = [...prev, normalized];
       saveToStorage(next);
       return next;
     });
   }, []);
 
-  const removeFavorite = useCallback((id: number) => {
+  const removeFavorite = useCallback((name: string) => {
+    const normalized = name.toLowerCase();
     setFavorites(prev => {
-      const next = prev.filter(f => f !== id);
+      const next = prev.filter(f => f.toLowerCase() !== normalized);
       saveToStorage(next);
       return next;
     });
   }, []);
 
   const isFavorite = useCallback(
-    (id: number) => favorites.includes(id),
+    (name: string) =>
+      favorites.some(f => f.toLowerCase() === name.toLowerCase()),
     [favorites],
   );
 

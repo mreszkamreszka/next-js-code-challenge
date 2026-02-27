@@ -8,7 +8,6 @@ import cn from '@/ui/utils/cn';
 
 type PokemonCardMenuProps = {
   pokemonName: string;
-  pokemonId: number;
   onOpenDetail?: () => void;
   trigger: React.ReactNode;
   className?: string;
@@ -16,14 +15,13 @@ type PokemonCardMenuProps = {
 
 const PokemonCardMenu: React.FC<PokemonCardMenuProps> = ({
   pokemonName,
-  pokemonId,
   onOpenDetail,
   trigger,
   className,
 }) => {
   const t = useTranslations('PokemonCardMenu');
   const { addFavorite, removeFavorite, isFavorite } = useFavorites();
-  const favorite = isFavorite(pokemonId);
+  const favorite = isFavorite(pokemonName);
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -85,9 +83,9 @@ const PokemonCardMenu: React.FC<PokemonCardMenuProps> = ({
             className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-slate-800 hover:bg-slate-50"
             onClick={() => {
               if (favorite) {
-                removeFavorite(pokemonId);
+                removeFavorite(pokemonName);
               } else {
-                addFavorite(pokemonId);
+                addFavorite(pokemonName);
               }
               setIsOpen(false);
             }}

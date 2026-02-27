@@ -78,7 +78,6 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemonName }) => {
         <div>
           <PokemonCardMenu
             pokemonName={pokemon.name}
-            pokemonId={pokemon.id}
             trigger={
               <Image
                 src={DotsSVG}
