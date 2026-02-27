@@ -1,16 +1,21 @@
 'use client';
+
 import type { FC } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import Navigation from '@/ui/components/PokemonSidebar/Navigation/Navigation';
 import Search from '@/ui/components/PokemonSidebar/Search/Search';
 
-const PokemonSidebar: FC = () => {
+type PokemonSidebarProps = {
+  onNavigate?: () => void;
+};
+
+const PokemonSidebar: FC<PokemonSidebarProps> = ({ onNavigate }) => {
   const t = useTranslations('Sidebar');
 
   return (
-    <aside className="sticky top-0 flex h-screen min-h-[540px] w-[320px] pt-6 pb-6 lg:shrink-0">
-      <div className="flex flex-col justify-between rounded-sm bg-white shadow-lg">
+    <aside className="sticky top-0 flex h-screen min-h-[540px] w-[320px] lg:shrink-0 xl:pt-6 xl:pb-6">
+      <div className="flex flex-col justify-between bg-white shadow-lg xl:rounded-sm">
         <div className="border-b-1 border-neutral-100 p-6">
           <div className="mb-10">
             <Image
@@ -26,7 +31,7 @@ const PokemonSidebar: FC = () => {
         </div>
 
         <div className="h-full border-b-1 border-neutral-100 p-6">
-          <Navigation />
+          <Navigation onNavigate={onNavigate} />
         </div>
         <footer className="p-6 text-xs text-gray-400">
           <p>{t('copyright')}</p>

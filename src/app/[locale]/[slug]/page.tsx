@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import getPokemon from '@/core/services/getPokemon';
 import PokemonLayout from '@/layouts/PokemonLayout/PokemonLayout';
-import PokemonSidebar from '@/ui/components/PokemonSidebar/PokemonSidebar';
+import PageWithSidebar from '@/ui/components/PageWithSidebar/PageWithSidebar';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -16,9 +16,8 @@ export default async function Page({ params }: PageProps) {
   }
 
   return (
-    <div className="mr-auto ml-auto flex min-h-screen w-full max-w-[1295px]">
-      <PokemonSidebar />
+    <PageWithSidebar>
       <PokemonLayout />
-    </div>
+    </PageWithSidebar>
   );
 }
