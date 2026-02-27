@@ -49,7 +49,8 @@ const PokemonCardMenu: React.FC<PokemonCardMenuProps> = ({
         type="button"
         className="cursor-pointer p-2 text-gray-400 hover:text-gray-600"
         aria-expanded={isOpen}
-        aria-haspopup="true"
+        aria-haspopup="menu"
+        aria-label={t('ariaOpenMenu', { name: pokemonName })}
         onClick={() => setIsOpen(prev => !prev)}
       >
         {trigger}
@@ -63,6 +64,7 @@ const PokemonCardMenu: React.FC<PokemonCardMenuProps> = ({
           <button
             type="button"
             role="menuitem"
+            aria-label={t('ariaOpenDetail', { name: pokemonName })}
             className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-slate-800 hover:bg-slate-50"
             onClick={() => {
               setIsOpen(false);

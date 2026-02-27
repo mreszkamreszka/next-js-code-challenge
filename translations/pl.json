@@ -6,10 +6,15 @@
     "title": "Next Code Challenge",
     "description": "Next Code Challenge stworzony przez Triple."
   },
+  "PokemonCard": {
+    "ariaViewDetails": "Zobacz szczegóły {name}"
+  },
   "PokemonCardMenu": {
     "openPokemon": "Otwórz Pokémona",
     "addToFavorites": "Dodaj do ulubionych",
-    "removeFromFavorites": "Usuń z ulubionych"
+    "removeFromFavorites": "Usuń z ulubionych",
+    "ariaOpenMenu": "Otwórz menu dla {name}",
+    "ariaOpenDetail": "Otwórz szczegóły dla {name}"
   },
   "Favorites": {
     "empty": "Brak ulubionych.",
@@ -30,6 +35,20 @@
     "notFound": "Nie znaleziono Pokémona",
     "close": "Zamknij",
     "evolutionPlaceholder": "Dane o ewolucji wkrótce",
-    "evolutionSpeciesNotFound": "Dane o gatunku nie są dostępne dla tego Pokémona"
+    "evolutionSpeciesNotFound": "Dane o gatunku nie są dostępne dla tego Pokémona",
+    "tabsLabel": "Zakładki szczegółów Pokémona",
+    "evolutionChainLabel": "Łańcuch ewolucji"
+  },
+  "Sidebar": {
+    "search": "Szukaj",
+    "ariaSearchLabel": "Szukaj Pokémonów",
+    "ariaSidebarLabel": "Nawigacja aplikacji",
+    "copyright": "Copyright © 2022 Triple. Wszelkie prawa zastrzeżone.",
+    "trademark": "Pokémon i nazwy postaci Pokémon są znakami towarowymi Nintendo."
+  },
+  "Navigation": {
+    "btnPokemon": "Pokémon",
+    "btnFavorites": "Ulubione",
+    "ariaNavLabel": "Główna nawigacja"
   }
 }

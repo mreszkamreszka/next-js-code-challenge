@@ -24,11 +24,12 @@ export default function Navigation({ onNavigate }: NavigationProps) {
   ];
 
   return (
-    <nav className="space-y-4">
+    <nav className="space-y-4" aria-label={t('ariaNavLabel')}>
       {navLinks.map(link => (
         <Link
           key={link.name}
           href={link.href}
+          aria-current={pathname === link.href ? 'page' : undefined}
           className={`flex w-full items-center gap-3 rounded-sm px-4 py-3 transition ${
             pathname === link.href
               ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md'
@@ -37,8 +38,9 @@ export default function Navigation({ onNavigate }: NavigationProps) {
           onClick={onNavigate}
         >
           <Image
+            aria-hidden
             src={link.icon}
-            alt="icon"
+            alt=""
             width={20}
             height={20}
             className={`h-5 w-5 ${pathname === link.href ? 'invert' : ''} `}

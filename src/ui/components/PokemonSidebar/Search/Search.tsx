@@ -24,17 +24,19 @@ const Search = () => {
   }, [debouncedInput, setSearchTerm]);
 
   return (
-    <div className="relative mb-8">
+    <div className="relative mb-8" role="search">
       <Image
+        aria-hidden
         src={SearchSVG}
-        alt="Search"
+        alt=""
         width={20}
         height={20}
         className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2"
       />
       <input
-        type="text"
+        type="search"
         placeholder={t('search')}
+        aria-label={t('ariaSearchLabel')}
         className="w-full rounded-xl bg-slate-100 py-3 pr-4 pl-12 focus:ring-2 focus:ring-violet-500 focus:outline-none"
         value={inputValue}
         onChange={event => setInputValue(event.target.value)}

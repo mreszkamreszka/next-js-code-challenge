@@ -2,6 +2,7 @@
 
 import type { FC } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import DotsSVG from '@/public/assets/dots.svg';
 import PokemonCardMenu from '@/ui/components/PokemonCard/PokemonCardMenu/PokemonCardMenu';
@@ -13,6 +14,7 @@ type PokemonCardProps = {
 };
 
 const PokemonCard: FC<PokemonCardProps> = ({ pokemonName }) => {
+  const t = useTranslations('PokemonCard');
   const { pokemon } = usePokemon(pokemonName);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -47,6 +49,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemonName }) => {
       {/* Top section */}
       <button
         className="relative flex h-56 w-full cursor-pointer items-center justify-center bg-[#F6F6FF]"
+        aria-label={t('ariaViewDetails', { name: pokemon.name })}
         onClick={openDetail}
         onKeyDown={e => e.key === 'Enter' && openDetail()}
       >
@@ -62,7 +65,7 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemonName }) => {
             className="h-36 object-contain"
           />
         ) : (
-          <div className="h-36 bg-gray-200 object-contain" />
+          <div aria-hidden className="h-36 bg-gray-200 object-contain" />
         )}
       </button>
 

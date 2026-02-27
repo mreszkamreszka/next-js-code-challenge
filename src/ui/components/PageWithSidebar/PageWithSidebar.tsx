@@ -56,7 +56,7 @@ export default function PageWithSidebar({ children }: PageWithSidebarProps) {
       </div>
 
       {/* Main content - extra padding on mobile to clear hamburger button */}
-      <div className="flex-1 pt-4 pl-16 md:pt-0 md:pl-0">{children}</div>
+      <main className="flex-1 pt-4 pl-16 md:pt-0 md:pl-0">{children}</main>
     </div>
   );
 }

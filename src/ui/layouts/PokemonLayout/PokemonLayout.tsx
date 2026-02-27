@@ -62,7 +62,11 @@ function PokemonListWithInfiniteScroll() {
 
   return (
     <>
-      {loading && <p>Loading...</p>}
+      {loading && (
+        <p aria-live="polite" aria-busy="true">
+          Loading...
+        </p>
+      )}
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {displayedPokemons.map(name => (
           <li key={name} className="radius-md border-none">
@@ -80,8 +84,8 @@ const PokemonLayout: React.FC = () => {
   const t = useTranslations('Homepage');
 
   return (
-    <section className="w-full p-10">
-      <h1>{t('title')}</h1>
+    <section className="w-full p-10" aria-labelledby="homepage-title">
+      <h1 id="homepage-title">{t('title')}</h1>
       <PokemonListWithInfiniteScroll key={searchTerm} />
     </section>
   );

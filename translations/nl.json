@@ -6,10 +6,15 @@
     "title": "Next Code Challenge",
     "description": "Next Code Challenge gemaakt door Triple."
   },
+  "PokemonCard": {
+    "ariaViewDetails": "Bekijk details voor {name}"
+  },
   "PokemonCardMenu": {
     "openPokemon": "Open Pokémon",
     "addToFavorites": "Toevoegen aan favorieten",
-    "removeFromFavorites": "Verwijderen uit favorieten"
+    "removeFromFavorites": "Verwijderen uit favorieten",
+    "ariaOpenMenu": "Menu openen voor {name}",
+    "ariaOpenDetail": "Details openen voor {name}"
   },
   "Favorites": {
     "empty": "Nog geen favorieten.",
@@ -30,6 +35,20 @@
     "notFound": "Pokémon niet gevonden",
     "close": "Sluiten",
     "evolutionPlaceholder": "Evolutiedata binnenkort",
-    "evolutionSpeciesNotFound": "Soortgegevens zijn niet beschikbaar voor deze Pokémon"
+    "evolutionSpeciesNotFound": "Soortgegevens zijn niet beschikbaar voor deze Pokémon",
+    "tabsLabel": "Pokémon-detailtabbladen",
+    "evolutionChainLabel": "Evolutieketen"
+  },
+  "Sidebar": {
+    "search": "Zoeken",
+    "ariaSearchLabel": "Zoek Pokémon",
+    "ariaSidebarLabel": "App-navigatiesidebalk",
+    "copyright": "Copyright © 2022 Triple. Alle rechten voorbehouden.",
+    "trademark": "Pokémon en Pokémon-karakternamen zijn handelsmerken van Nintendo."
+  },
+  "Navigation": {
+    "btnPokemon": "Pokémon",
+    "btnFavorites": "Favorieten",
+    "ariaNavLabel": "Hoofdnavigatie"
   }
 }

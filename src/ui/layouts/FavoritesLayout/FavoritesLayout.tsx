@@ -30,8 +30,8 @@ export default function FavoritesLayout() {
   }, [favorites, searchTerm, allPokemon]);
 
   return (
-    <section className="w-full p-10">
-      <h1>{t('btnFavorites')}</h1>
+    <section className="w-full p-10" aria-labelledby="favorites-title">
+      <h1 id="favorites-title">{t('btnFavorites')}</h1>
       {favorites.length === 0 ? (
         <p className="mt-4 text-slate-600">{tFavorites('empty')}</p>
       ) : filteredFavorites.length === 0 ? (

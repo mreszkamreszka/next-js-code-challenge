@@ -95,7 +95,14 @@ function StatsTab({ pokemon }: { pokemon: Pokemon }) {
             </span>
             <span className="text-slate-600">{stat.baseStat}</span>
           </div>
-          <div className="h-2 overflow-hidden rounded-full bg-slate-200">
+          <div
+            className="h-2 overflow-hidden rounded-full bg-slate-200"
+            role="progressbar"
+            aria-valuenow={stat.baseStat}
+            aria-valuemin={0}
+            aria-valuemax={maxStat}
+            aria-label={`${STAT_NAMES[stat.name] ?? stat.name}: ${stat.baseStat}`}
+          >
             <div
               className="h-full rounded-full bg-violet-600 transition-all"
               style={{ width: `${(stat.baseStat / maxStat) * 100}%` }}
@@ -113,7 +120,11 @@ function EvolutionTab({ pokemonId }: { pokemonId: number }) {
 
   if (loading) {
     return (
-      <div className="flex min-h-[200px] items-center justify-center">
+      <div
+        className="flex min-h-[200px] items-center justify-center"
+        aria-live="polite"
+        aria-busy="true"
+      >
         <p className="text-slate-500">{t('loading')}</p>
       </div>
     );
@@ -121,7 +132,10 @@ function EvolutionTab({ pokemonId }: { pokemonId: number }) {
 
   if (notFound) {
     return (
-      <div className="flex flex-col items-center justify-center py-8 text-slate-500">
+      <div
+        className="flex flex-col items-center justify-center py-8 text-slate-500"
+        aria-live="polite"
+      >
         <p>{t('evolutionSpeciesNotFound')}</p>
       </div>
     );
@@ -129,16 +143,22 @@ function EvolutionTab({ pokemonId }: { pokemonId: number }) {
 
   if (chain.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-8 text-slate-500">
+      <div
+        className="flex flex-col items-center justify-center py-8 text-slate-500"
+        aria-live="polite"
+      >
         <p>{t('evolutionPlaceholder')}</p>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-0">
+    <ol
+      className="flex list-none flex-col gap-0"
+      aria-label={t('evolutionChainLabel')}
+    >
       {chain.map((item, index) => (
-        <div key={item.id} className="flex flex-col items-stretch">
+        <li key={item.id} className="flex flex-col items-stretch">
           <div className="flex items-center gap-4 rounded-lg bg-slate-50 p-4">
             <Image
               unoptimized
@@ -156,11 +176,14 @@ function EvolutionTab({ pokemonId }: { pokemonId: number }) {
             </span>
           </div>
           {index < chain.length - 1 && (
-            <div className="ml-6 h-6 border-l-2 border-dashed border-slate-300" />
+            <div
+              aria-hidden
+              className="ml-6 h-6 border-l-2 border-dashed border-slate-300"
+            />
           )}
-        </div>
+        </li>
       ))}
-    </div>
+    </ol>
   );
 }
 
@@ -200,7 +223,11 @@ export default function PokemonDetailDialog({
           </Dialog.Close>
 
           {loading ? (
-            <div className="flex min-h-[400px] items-center justify-center">
+            <div
+              className="flex min-h-[400px] items-center justify-center"
+              aria-live="polite"
+              aria-busy="true"
+            >
               <p className="text-slate-500">{t('loading')}</p>
             </div>
           ) : pokemon ? (
@@ -248,11 +275,19 @@ export default function PokemonDetailDialog({
 
               {/* Right panel */}
               <div className="flex flex-1 flex-col p-6">
-                <div className="mb-6 flex gap-6 border-b border-slate-200">
+                <div
+                  className="mb-6 flex gap-6 border-b border-slate-200"
+                  role="tablist"
+                  aria-label={t('tabsLabel')}
+                >
                   {tabs.map(tab => (
                     <button
                       key={tab.id}
                       type="button"
+                      role="tab"
+                      aria-selected={activeTab === tab.id}
+                      aria-controls={`panel-${tab.id}`}
+                      id={`tab-${tab.id}`}
                       className={cn(
                         'border-b-2 pb-2 font-medium transition-colors',
                         activeTab === tab.id
@@ -266,9 +301,31 @@ export default function PokemonDetailDialog({
                   ))}
                 </div>
 
-                <div className="min-h-[200px]">
+                <div
+                  className="min-h-[200px]"
+                  role="tabpanel"
+                  id="panel-about"
+                  aria-labelledby="tab-about"
+                  hidden={activeTab !== 'about'}
+                >
                   {activeTab === 'about' && <AboutTab pokemon={pokemon} />}
+                </div>
+                <div
+                  className="min-h-[200px]"
+                  role="tabpanel"
+                  id="panel-stats"
+                  aria-labelledby="tab-stats"
+                  hidden={activeTab !== 'stats'}
+                >
                   {activeTab === 'stats' && <StatsTab pokemon={pokemon} />}
+                </div>
+                <div
+                  className="min-h-[200px]"
+                  role="tabpanel"
+                  id="panel-evolution"
+                  aria-labelledby="tab-evolution"
+                  hidden={activeTab !== 'evolution'}
+                >
                   {activeTab === 'evolution' && (
                     <EvolutionTab pokemonId={pokemon.id} />
                   )}
@@ -276,7 +333,10 @@ export default function PokemonDetailDialog({
               </div>
             </div>
           ) : (
-            <div className="flex min-h-[400px] items-center justify-center">
+            <div
+              className="flex min-h-[400px] items-center justify-center"
+              aria-live="polite"
+            >
               <p className="text-slate-500">{t('notFound')}</p>
             </div>
           )}

@@ -1,24 +1,32 @@
 {
   "Homepage": {
-    "title": "All Pokémons"
+    "title": "All Pok\u00e9mons"
   },
   "Metadata": {
     "title": "Next Code Challenge",
     "description": "Next Code Challenge created by Triple."
   },
   "Sidebar": {
-    "copyright": "Copyright © 2022 Triple. All rights reserved.",
-    "trademark": "Pokémon and Pokémon character names are trademarks of Nintendo.",
-    "search": "Search"
+    "copyright": "Copyright \u00a9 2022 Triple. All rights reserved.",
+    "trademark": "Pok\u00e9mon and Pok\u00e9mon character names are trademarks of Nintendo.",
+    "search": "Search",
+    "ariaSearchLabel": "Search Pok\u00e9mon",
+    "ariaSidebarLabel": "App navigation sidebar"
   },
   "Navigation": {
-    "btnPokemon": "Pokémon",
-    "btnFavorites": "Favorites"
+    "btnPokemon": "Pok\u00e9mon",
+    "btnFavorites": "Favorites",
+    "ariaNavLabel": "Main navigation"
+  },
+  "PokemonCard": {
+    "ariaViewDetails": "View details for {name}"
   },
   "PokemonCardMenu": {
-    "openPokemon": "Open Pokémon",
+    "openPokemon": "Open Pok\u00e9mon",
     "addToFavorites": "Add to favorites",
-    "removeFromFavorites": "Remove from favorites"
+    "removeFromFavorites": "Remove from favorites",
+    "ariaOpenMenu": "Open menu for {name}",
+    "ariaOpenDetail": "Open details for {name}"
   },
   "Favorites": {
     "empty": "No favorites yet.",
@@ -36,9 +44,11 @@
     "types": "Types",
     "abilities": "Abilities",
     "loading": "Loading...",
-    "notFound": "Pokémon not found",
+    "notFound": "Pok\u00e9mon not found",
     "close": "Close",
     "evolutionPlaceholder": "Evolution data coming soon",
-    "evolutionSpeciesNotFound": "Species data is not available for this Pokémon"
+    "evolutionSpeciesNotFound": "Species data is not available for this Pok\u00e9mon",
+    "tabsLabel": "Pok\u00e9mon details tabs",
+    "evolutionChainLabel": "Evolution chain"
   }
 }

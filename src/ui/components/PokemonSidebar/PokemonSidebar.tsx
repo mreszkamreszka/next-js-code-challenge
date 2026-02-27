@@ -14,7 +14,10 @@ const PokemonSidebar: FC<PokemonSidebarProps> = ({ onNavigate }) => {
   const t = useTranslations('Sidebar');
 
   return (
-    <aside className="sticky top-0 flex h-screen min-h-[540px] w-[320px] lg:shrink-0 xl:pt-6 xl:pb-6">
+    <aside
+      className="sticky top-0 flex h-screen min-h-[540px] w-[320px] lg:shrink-0 xl:pt-6 xl:pb-6"
+      aria-label={t('ariaSidebarLabel')}
+    >
       <div className="flex flex-col justify-between bg-white shadow-lg xl:rounded-sm">
         <div className="border-b-1 border-neutral-100 p-6">
           <div className="mb-10">
