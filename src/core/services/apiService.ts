@@ -3,6 +3,7 @@ const API_BASEURL = 'https://pokeapi.co/api/v2';
 interface ApiResponse<T> {
   data: T;
   error?: string;
+  status?: number;
 }
 
 const api = {
@@ -10,7 +11,11 @@ const api = {
     try {
       const response = await fetch(`${API_BASEURL}${endpoint}`);
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        return {
+          data: null as any,
+          error: `HTTP error! status: ${response.status}`,
+          status: response.status,
+        };
       }
       const data = await response.json();
       return { data };

@@ -29,6 +29,7 @@
     "loading": "Laden...",
     "notFound": "Pokémon niet gevonden",
     "close": "Sluiten",
-    "evolutionPlaceholder": "Evolutiedata binnenkort"
+    "evolutionPlaceholder": "Evolutiedata binnenkort",
+    "evolutionSpeciesNotFound": "Soortgegevens zijn niet beschikbaar voor deze Pokémon"
   }
 }

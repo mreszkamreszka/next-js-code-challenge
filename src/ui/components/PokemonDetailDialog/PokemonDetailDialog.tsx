@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import type { Pokemon } from '@/core/models/pokemon';
 import usePokemon from '@/ui/hooks/services/usePokemon';
+import usePokemonEvolutionChain from '@/ui/hooks/services/usePokemonEvolutionChain';
 import cn from '@/ui/utils/cn';
 
 const TYPE_COLORS: Record<string, { bg: string; dot: string }> = {
@@ -106,11 +107,59 @@ function StatsTab({ pokemon }: { pokemon: Pokemon }) {
   );
 }
 
-function EvolutionTab() {
+function EvolutionTab({ pokemonId }: { pokemonId: number }) {
   const t = useTranslations('PokemonDetailDialog');
+  const { chain, loading, notFound } = usePokemonEvolutionChain(pokemonId);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-[200px] items-center justify-center">
+        <p className="text-slate-500">{t('loading')}</p>
+      </div>
+    );
+  }
+
+  if (notFound) {
+    return (
+      <div className="flex flex-col items-center justify-center py-8 text-slate-500">
+        <p>{t('evolutionSpeciesNotFound')}</p>
+      </div>
+    );
+  }
+
+  if (chain.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-8 text-slate-500">
+        <p>{t('evolutionPlaceholder')}</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center py-8 text-slate-500">
-      <p>{t('evolutionPlaceholder')}</p>
+    <div className="flex flex-col gap-0">
+      {chain.map((item, index) => (
+        <div key={item.id} className="flex flex-col items-stretch">
+          <div className="flex items-center gap-4 rounded-lg bg-slate-50 p-4">
+            <Image
+              unoptimized
+              src={item.spriteUrl}
+              alt={item.name}
+              width={48}
+              height={48}
+              className="h-12 w-12 object-contain"
+            />
+            <span className="rounded bg-slate-200 px-2 py-0.5 text-sm font-medium text-slate-700">
+              {String(item.id).padStart(3, '0')}
+            </span>
+            <span className="font-semibold text-slate-800 capitalize">
+              {item.name}
+            </span>
+          </div>
+          {index < chain.length - 1 && (
+            <div className="ml-6 h-6 border-l-2 border-dashed border-slate-300" />
+          )}
+        </div>
+      ))}
     </div>
   );
 }
@@ -220,7 +269,9 @@ export default function PokemonDetailDialog({
                 <div className="min-h-[200px]">
                   {activeTab === 'about' && <AboutTab pokemon={pokemon} />}
                   {activeTab === 'stats' && <StatsTab pokemon={pokemon} />}
-                  {activeTab === 'evolution' && <EvolutionTab />}
+                  {activeTab === 'evolution' && (
+                    <EvolutionTab pokemonId={pokemon.id} />
+                  )}
                 </div>
               </div>
             </div>

@@ -5,6 +5,7 @@ import api from './apiService';
 
 async function getPokemon(name: string): Promise<Pokemon | null> {
   const response = await api.get<PokemonDTO>(`/pokemon/${name}`);
+
   return transformPokemon(response.data);
 }
 

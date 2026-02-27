@@ -29,6 +29,7 @@
     "loading": "Ładowanie...",
     "notFound": "Nie znaleziono Pokémona",
     "close": "Zamknij",
-    "evolutionPlaceholder": "Dane o ewolucji wkrótce"
+    "evolutionPlaceholder": "Dane o ewolucji wkrótce",
+    "evolutionSpeciesNotFound": "Dane o gatunku nie są dostępne dla tego Pokémona"
   }
 }

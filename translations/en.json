@@ -38,6 +38,7 @@
     "loading": "Loading...",
     "notFound": "Pokémon not found",
     "close": "Close",
-    "evolutionPlaceholder": "Evolution data coming soon"
+    "evolutionPlaceholder": "Evolution data coming soon",
+    "evolutionSpeciesNotFound": "Species data is not available for this Pokémon"
   }
 }
