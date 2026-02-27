@@ -16,7 +16,7 @@ export default async function Page({ params }: PageProps) {
   }
 
   return (
-    <div className="mr-auto ml-auto flex min-h-screen min-w-[1295px]">
+    <div className="mr-auto ml-auto flex min-h-screen w-full max-w-[1295px]">
       <PokemonSidebar />
       <PokemonLayout />
     </div>

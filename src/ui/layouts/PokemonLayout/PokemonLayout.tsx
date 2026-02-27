@@ -3,30 +3,24 @@
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import PokemonCard from '@/ui/components/PokemonCard/PokemonCard';
+import { useSearch } from '@/ui/contexts/SearchContext';
 import useFilteredPokemonList from '@/ui/hooks/services/useFilteredPokemonList';
 
 const PAGE_SIZE = 20;
 
-const PokemonLayout: React.FC = () => {
-  const { filteredList, loading, hasSearchTerm } = useFilteredPokemonList();
-  const [infiniteVisibleCount, setInfiniteVisibleCount] = useState(PAGE_SIZE);
-  const sentinelRef = useRef<HTMLDivElement>(null);
-  const t = useTranslations('Homepage');
+function PokemonListWithInfiniteScroll() {
+  const { filteredList, loading } = useFilteredPokemonList();
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+  const isFetchingRef = useRef(false);
+  const hasScrolledRef = useRef(false);
 
-  const displayedPokemons = hasSearchTerm
-    ? filteredList.slice(0, PAGE_SIZE)
-    : filteredList.slice(0, infiniteVisibleCount);
+  const displayedPokemons = filteredList.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredList.length;
 
   const loadMore = useCallback(() => {
-    if (hasSearchTerm) return;
-    setInfiniteVisibleCount(prev => prev + PAGE_SIZE);
-  }, [hasSearchTerm]);
-
-  const isLoadingMoreRef = useRef(false);
-  const hasScrolledRef = useRef(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined,
-  );
+    setVisibleCount(prev => prev + PAGE_SIZE);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,45 +31,37 @@ const PokemonLayout: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (hasSearchTerm || loading) return () => {};
+    if (!hasMore || loading) return () => {};
 
     const sentinel = sentinelRef.current;
     if (!sentinel) return () => {};
 
     const observer = new IntersectionObserver(
       entries => {
-        const [entry] = entries;
+        const entry = entries[0];
         if (
           entry.isIntersecting &&
-          !isLoadingMoreRef.current &&
+          !isFetchingRef.current &&
           hasScrolledRef.current
         ) {
-          isLoadingMoreRef.current = true;
+          isFetchingRef.current = true;
           loadMore();
-          timeoutRef.current = setTimeout(() => {
-            isLoadingMoreRef.current = false;
-          }, 300);
-        } else {
-          isLoadingMoreRef.current = false;
-          if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-            timeoutRef.current = undefined;
-          }
         }
       },
-      { rootMargin: '200px', threshold: 0 },
+      { rootMargin: '200px' },
     );
 
     observer.observe(sentinel);
-    return () => {
-      observer.disconnect();
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, [loadMore, loading, hasSearchTerm, displayedPokemons.length]);
+
+    return () => observer.disconnect();
+  }, [hasMore, loading, loadMore]);
+
+  useEffect(() => {
+    isFetchingRef.current = false;
+  }, [visibleCount]);
 
   return (
-    <section className="w-full p-10">
-      <h1>{t('title')}</h1>
+    <>
       {loading && <p>Loading...</p>}
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {displayedPokemons.map(name => (
@@ -84,9 +70,19 @@ const PokemonLayout: React.FC = () => {
           </li>
         ))}
       </ul>
-      {!hasSearchTerm && displayedPokemons.length < filteredList.length && (
-        <div ref={sentinelRef} aria-hidden className="h-1" />
-      )}
+      {hasMore && <div ref={sentinelRef} aria-hidden className="h-1" />}
+    </>
+  );
+}
+
+const PokemonLayout: React.FC = () => {
+  const { searchTerm } = useSearch();
+  const t = useTranslations('Homepage');
+
+  return (
+    <section className="w-full p-10">
+      <h1>{t('title')}</h1>
+      <PokemonListWithInfiniteScroll key={searchTerm} />
     </section>
   );
 };
