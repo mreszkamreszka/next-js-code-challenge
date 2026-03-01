@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import Navigation from '@/ui/components/PokemonSidebar/Navigation/Navigation';
 import Search from '@/ui/components/PokemonSidebar/Search/Search';
+import ThemeSwitcher from '@/ui/components/ThemeSwitcher/ThemeSwitcher';
 
 type PokemonSidebarProps = {
   onNavigate?: () => void;
@@ -20,15 +21,18 @@ const PokemonSidebar: FC<PokemonSidebarProps> = ({ onNavigate }) => {
     >
       <div className="flex flex-col justify-between bg-white shadow-lg xl:rounded-sm dark:bg-slate-800 dark:shadow-slate-900/50">
         <div className="border-b border-neutral-100 p-6 dark:border-slate-700">
-          <div className="mb-10">
-            <Image
-              priority
-              src="/assets/pokemonlogo.png"
-              alt="Pokemon logo"
-              width={170}
-              height={62}
-              className="mx-auto w-40"
-            />
+          <div className="mb-6 flex items-center justify-between">
+            <div className="flex flex-1 justify-center">
+              <Image
+                priority
+                src="/assets/pokemonlogo.png"
+                alt="Pokemon logo"
+                width={170}
+                height={62}
+                className="w-40"
+              />
+            </div>
+            <ThemeSwitcher />
           </div>
           <Search />
         </div>
