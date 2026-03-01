@@ -26,14 +26,14 @@ export default function PageWithSidebar({ children }: PageWithSidebarProps) {
       {/* Hamburger button - visible below md, hidden when sidebar is open */}
       <button
         type="button"
-        className={`fixed top-4 left-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg md:hidden ${
+        className={`fixed top-4 left-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg md:hidden dark:bg-slate-800 dark:shadow-slate-900/50 ${
           isSidebarOpen ? 'pointer-events-none invisible' : ''
         }`}
         aria-label="Toggle menu"
         aria-expanded={isSidebarOpen}
         onClick={() => setIsSidebarOpen(prev => !prev)}
       >
-        <Menu className="h-6 w-6 text-slate-700" />
+        <Menu className="h-6 w-6 text-slate-700 dark:text-slate-200" />
       </button>
 
       {/* Overlay - when sidebar open on mobile */}

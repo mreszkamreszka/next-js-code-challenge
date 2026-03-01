@@ -1,10 +1,13 @@
 import type { Metadata, Viewport } from 'next';
 import type { Locale } from 'next-intl';
+import Script from 'next/script';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import MainLayout from '@/layouts/MainLayout/MainLayout';
+import ThemeSwitcher from '@/ui/components/ThemeSwitcher/ThemeSwitcher';
 import { FavoritesProvider } from '@/ui/contexts/FavoritesContext';
 import { SearchProvider } from '@/ui/contexts/SearchContext';
+import { ThemeProvider } from '@/ui/contexts/ThemeContext';
 import QueryProvider from '@/ui/providers/QueryProvider';
 
 import '@/styles/global.css';
@@ -58,15 +61,21 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html suppressHydrationWarning lang={locale}>
       <body>
+        <Script src="/theme-init.js" strategy="beforeInteractive" />
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>
-            <FavoritesProvider>
-              <SearchProvider>
-                <MainLayout>{children}</MainLayout>
-              </SearchProvider>
-            </FavoritesProvider>
+            <ThemeProvider>
+              <FavoritesProvider>
+                <SearchProvider>
+                  <MainLayout>{children}</MainLayout>
+                  <div className="fixed right-4 bottom-4 z-50 rounded-full bg-white shadow-lg dark:bg-slate-800 dark:shadow-slate-900/50">
+                    <ThemeSwitcher />
+                  </div>
+                </SearchProvider>
+              </FavoritesProvider>
+            </ThemeProvider>
           </QueryProvider>
         </NextIntlClientProvider>
       </body>

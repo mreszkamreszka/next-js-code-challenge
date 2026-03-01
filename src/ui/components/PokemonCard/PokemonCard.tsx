@@ -45,10 +45,10 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemonName }) => {
   }
 
   return (
-    <div className="rounded-sm bg-white shadow-md transition hover:shadow-xl">
+    <div className="rounded-sm bg-white shadow-md transition hover:shadow-xl dark:bg-slate-800 dark:shadow-slate-900/50 dark:hover:shadow-slate-800">
       {/* Top section */}
       <button
-        className="relative flex h-56 w-full cursor-pointer items-center justify-center bg-[#F6F6FF]"
+        className="relative flex h-56 w-full cursor-pointer items-center justify-center bg-[#F6F6FF] dark:bg-slate-700/50"
         aria-label={t('ariaViewDetails', { name: pokemon.name })}
         onClick={openDetail}
         onKeyDown={e => e.key === 'Enter' && openDetail()}
@@ -65,13 +65,16 @@ const PokemonCard: FC<PokemonCardProps> = ({ pokemonName }) => {
             className="h-36 object-contain"
           />
         ) : (
-          <div aria-hidden className="h-36 bg-gray-200 object-contain" />
+          <div
+            aria-hidden
+            className="h-36 bg-gray-200 object-contain dark:bg-slate-600"
+          />
         )}
       </button>
 
       {/* Bottom section */}
       <div className="flex items-center justify-between px-4 py-4">
-        <h2 className="truncate font-semibold text-slate-800 capitalize">
+        <h2 className="truncate font-semibold text-slate-800 capitalize dark:text-slate-200">
           {pokemon.name}
         </h2>
 

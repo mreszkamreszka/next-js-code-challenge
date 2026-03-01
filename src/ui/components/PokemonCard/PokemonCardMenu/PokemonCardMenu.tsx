@@ -45,7 +45,7 @@ const PokemonCardMenu: React.FC<PokemonCardMenuProps> = ({
     <div ref={menuRef} className={cn('relative', className)}>
       <button
         type="button"
-        className="cursor-pointer p-2 text-gray-400 hover:text-gray-600"
+        className="cursor-pointer p-2 text-gray-400 hover:text-gray-600 dark:text-slate-500 dark:hover:text-slate-300"
         aria-expanded={isOpen}
         aria-haspopup="menu"
         aria-label={t('ariaOpenMenu', { name: pokemonName })}
@@ -56,14 +56,14 @@ const PokemonCardMenu: React.FC<PokemonCardMenuProps> = ({
 
       {isOpen && (
         <div
-          className="absolute top-full right-0 z-10 mt-1 min-w-[180px] rounded-md bg-white p-2 shadow-lg ring-1 ring-black/5"
+          className="absolute top-full right-0 z-10 mt-1 min-w-[180px] rounded-md bg-white p-2 shadow-lg ring-1 ring-black/5 dark:bg-slate-800 dark:ring-slate-600"
           role="menu"
         >
           <button
             type="button"
             role="menuitem"
             aria-label={t('ariaOpenDetail', { name: pokemonName })}
-            className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-slate-800 hover:bg-slate-50"
+            className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-slate-800 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-700"
             onClick={() => {
               setIsOpen(false);
               onOpenDetail?.();
@@ -80,7 +80,7 @@ const PokemonCardMenu: React.FC<PokemonCardMenuProps> = ({
                 ? `Remove ${pokemonName} from favorites`
                 : `Add ${pokemonName} to favorites`
             }
-            className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-slate-800 hover:bg-slate-50"
+            className="flex w-full items-center gap-3 px-4 py-2 text-left text-sm text-slate-800 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-700"
             onClick={() => {
               if (favorite) {
                 removeFavorite(pokemonName);

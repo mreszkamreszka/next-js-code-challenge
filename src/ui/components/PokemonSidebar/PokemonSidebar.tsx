@@ -18,8 +18,8 @@ const PokemonSidebar: FC<PokemonSidebarProps> = ({ onNavigate }) => {
       className="sticky top-0 flex h-screen min-h-[540px] w-[320px] lg:shrink-0 xl:pt-6 xl:pb-6"
       aria-label={t('ariaSidebarLabel')}
     >
-      <div className="flex flex-col justify-between bg-white shadow-lg xl:rounded-sm">
-        <div className="border-b-1 border-neutral-100 p-6">
+      <div className="flex flex-col justify-between bg-white shadow-lg xl:rounded-sm dark:bg-slate-800 dark:shadow-slate-900/50">
+        <div className="border-b border-neutral-100 p-6 dark:border-slate-700">
           <div className="mb-10">
             <Image
               priority
@@ -33,10 +33,10 @@ const PokemonSidebar: FC<PokemonSidebarProps> = ({ onNavigate }) => {
           <Search />
         </div>
 
-        <div className="h-full border-b-1 border-neutral-100 p-6">
+        <div className="h-full border-b border-neutral-100 p-6 dark:border-slate-700">
           <Navigation onNavigate={onNavigate} />
         </div>
-        <footer className="p-6 text-xs text-gray-400">
+        <footer className="p-6 text-xs text-gray-400 dark:text-slate-500">
           <p>{t('copyright')}</p>
           <p className="mt-2">{t('trademark')}</p>
         </footer>

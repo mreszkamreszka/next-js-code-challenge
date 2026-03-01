@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import type { Pokemon } from '@/core/models/pokemon';
+import LoadingSpinner from '@/ui/components/LoadingSpinner/LoadingSpinner';
 import usePokemon from '@/ui/hooks/services/usePokemon';
 import usePokemonEvolutionChain from '@/ui/hooks/services/usePokemonEvolutionChain';
 import cn from '@/ui/utils/cn';
@@ -74,8 +75,12 @@ function AboutTab({ pokemon }: { pokemon: Pokemon }) {
     <div className="space-y-3">
       {rows.map(({ label, value }) => (
         <div key={label} className="flex justify-between gap-4">
-          <span className="font-semibold text-slate-800">{label}</span>
-          <span className="text-slate-600 capitalize">{value}</span>
+          <span className="font-semibold text-slate-800 dark:text-slate-200">
+            {label}
+          </span>
+          <span className="text-slate-600 capitalize dark:text-slate-400">
+            {value}
+          </span>
         </div>
       ))}
     </div>
@@ -90,13 +95,15 @@ function StatsTab({ pokemon }: { pokemon: Pokemon }) {
       {pokemon.stats.map(stat => (
         <div key={stat.name}>
           <div className="mb-1 flex justify-between text-sm">
-            <span className="font-medium text-slate-800 capitalize">
+            <span className="font-medium text-slate-800 capitalize dark:text-slate-200">
               {STAT_NAMES[stat.name] ?? stat.name}
             </span>
-            <span className="text-slate-600">{stat.baseStat}</span>
+            <span className="text-slate-600 dark:text-slate-400">
+              {stat.baseStat}
+            </span>
           </div>
           <div
-            className="h-2 overflow-hidden rounded-full bg-slate-200"
+            className="h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-600"
             role="progressbar"
             aria-valuenow={stat.baseStat}
             aria-valuemin={0}
@@ -121,11 +128,12 @@ function EvolutionTab({ pokemonId }: { pokemonId: number }) {
   if (loading) {
     return (
       <div
-        className="flex min-h-[200px] items-center justify-center"
+        className="flex min-h-[200px] flex-col items-center justify-center gap-4"
         aria-live="polite"
         aria-busy="true"
       >
-        <p className="text-slate-500">{t('loading')}</p>
+        <LoadingSpinner size="md" />
+        <p className="text-slate-500 dark:text-slate-400">{t('loading')}</p>
       </div>
     );
   }
@@ -136,7 +144,7 @@ function EvolutionTab({ pokemonId }: { pokemonId: number }) {
         className="flex flex-col items-center justify-center py-8 text-slate-500"
         aria-live="polite"
       >
-        <p>{t('evolutionSpeciesNotFound')}</p>
+        <p className="dark:text-slate-400">{t('evolutionSpeciesNotFound')}</p>
       </div>
     );
   }
@@ -147,7 +155,7 @@ function EvolutionTab({ pokemonId }: { pokemonId: number }) {
         className="flex flex-col items-center justify-center py-8 text-slate-500"
         aria-live="polite"
       >
-        <p>{t('evolutionPlaceholder')}</p>
+        <p className="dark:text-slate-400">{t('evolutionPlaceholder')}</p>
       </div>
     );
   }
@@ -159,7 +167,7 @@ function EvolutionTab({ pokemonId }: { pokemonId: number }) {
     >
       {chain.map((item, index) => (
         <li key={item.id} className="flex flex-col items-stretch">
-          <div className="flex items-center gap-4 rounded-lg bg-slate-50 p-4">
+          <div className="flex items-center gap-4 rounded-lg bg-slate-50 p-4 dark:bg-slate-700/50">
             <Image
               unoptimized
               src={item.spriteUrl}
@@ -168,10 +176,10 @@ function EvolutionTab({ pokemonId }: { pokemonId: number }) {
               height={48}
               className="h-12 w-12 object-contain"
             />
-            <span className="rounded bg-slate-200 px-2 py-0.5 text-sm font-medium text-slate-700">
+            <span className="rounded bg-slate-200 px-2 py-0.5 text-sm font-medium text-slate-700 dark:bg-slate-600 dark:text-slate-300">
               {String(item.id).padStart(3, '0')}
             </span>
-            <span className="font-semibold text-slate-800 capitalize">
+            <span className="font-semibold text-slate-800 capitalize dark:text-slate-200">
               {item.name}
             </span>
           </div>
@@ -208,14 +216,14 @@ export default function PokemonDetailDialog({
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 z-50 max-h-[90vh] w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl bg-white shadow-xl">
+        <Dialog.Content className="fixed top-1/2 left-1/2 z-50 max-h-[90vh] w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl bg-white shadow-xl dark:bg-slate-800 dark:shadow-slate-900/50">
           <Dialog.Title className="sr-only">
             {pokemonName ? `${t('about')} ${pokemonName}` : t('loading')}
           </Dialog.Title>
           <Dialog.Close asChild>
             <button
               type="button"
-              className="absolute top-4 right-4 rounded p-1 text-slate-500 hover:bg-slate-100 hover:text-slate-700"
+              className="absolute top-4 right-4 rounded p-1 text-slate-500 hover:bg-slate-100 hover:text-slate-700 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-slate-200"
               aria-label={t('close')}
             >
               <X className="h-5 w-5" />
@@ -224,20 +232,23 @@ export default function PokemonDetailDialog({
 
           {loading ? (
             <div
-              className="flex min-h-[400px] items-center justify-center"
+              className="flex min-h-[400px] flex-col items-center justify-center gap-4"
               aria-live="polite"
               aria-busy="true"
             >
-              <p className="text-slate-500">{t('loading')}</p>
+              <LoadingSpinner size="lg" />
+              <p className="text-slate-500 dark:text-slate-400">
+                {t('loading')}
+              </p>
             </div>
           ) : pokemon ? (
             <div className="flex">
               {/* Left panel */}
-              <div className="flex w-64 flex-col border-r border-slate-200 bg-[#F6F6FF] p-6">
-                <span className="text-sm text-slate-500">
+              <div className="flex w-64 flex-col border-r border-slate-200 bg-[#F6F6FF] p-6 dark:border-slate-700 dark:bg-slate-700/50">
+                <span className="text-sm text-slate-500 dark:text-slate-400">
                   {String(pokemon.id).padStart(3, '0')}
                 </span>
-                <h2 className="mb-3 text-2xl font-bold text-violet-900 capitalize">
+                <h2 className="mb-3 text-2xl font-bold text-violet-900 capitalize dark:text-violet-200">
                   {pokemon.name}
                 </h2>
                 <div className="mb-6 flex flex-wrap gap-2">
@@ -276,7 +287,7 @@ export default function PokemonDetailDialog({
               {/* Right panel */}
               <div className="flex flex-1 flex-col p-6">
                 <div
-                  className="mb-6 flex gap-6 border-b border-slate-200"
+                  className="mb-6 flex gap-6 border-b border-slate-200 dark:border-slate-700"
                   role="tablist"
                   aria-label={t('tabsLabel')}
                 >
@@ -291,8 +302,8 @@ export default function PokemonDetailDialog({
                       className={cn(
                         'border-b-2 pb-2 font-medium transition-colors',
                         activeTab === tab.id
-                          ? 'border-violet-600 text-violet-900'
-                          : 'border-transparent text-slate-500 hover:text-slate-700',
+                          ? 'border-violet-600 text-violet-900 dark:text-violet-200'
+                          : 'border-transparent text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200',
                       )}
                       onClick={() => setActiveTab(tab.id)}
                     >
@@ -337,7 +348,9 @@ export default function PokemonDetailDialog({
               className="flex min-h-[400px] items-center justify-center"
               aria-live="polite"
             >
-              <p className="text-slate-500">{t('notFound')}</p>
+              <p className="text-slate-500 dark:text-slate-400">
+                {t('notFound')}
+              </p>
             </div>
           )}
         </Dialog.Content>

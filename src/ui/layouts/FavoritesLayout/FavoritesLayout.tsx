@@ -20,11 +20,17 @@ export default function FavoritesLayout() {
 
   return (
     <section className="w-full p-10" aria-labelledby="favorites-title">
-      <h1 id="favorites-title">{t('btnFavorites')}</h1>
+      <h1 id="favorites-title" className="text-slate-900 dark:text-slate-100">
+        {t('btnFavorites')}
+      </h1>
       {favorites.length === 0 ? (
-        <p className="mt-4 text-slate-600">{tFavorites('empty')}</p>
+        <p className="mt-4 text-slate-600 dark:text-slate-400">
+          {tFavorites('empty')}
+        </p>
       ) : filteredFavorites.length === 0 ? (
-        <p className="mt-4 text-slate-600">{tFavorites('noSearchResults')}</p>
+        <p className="mt-4 text-slate-600 dark:text-slate-400">
+          {tFavorites('noSearchResults')}
+        </p>
       ) : (
         <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {filteredFavorites.map(name => (

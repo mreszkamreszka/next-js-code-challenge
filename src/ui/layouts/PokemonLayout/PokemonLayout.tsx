@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import LoadingSpinner from '@/ui/components/LoadingSpinner/LoadingSpinner';
 import PokemonCard from '@/ui/components/PokemonCard/PokemonCard';
 import { useSearch } from '@/ui/contexts/SearchContext';
 import useFilteredPokemonList from '@/ui/hooks/services/useFilteredPokemonList';
@@ -63,9 +64,14 @@ function PokemonListWithInfiniteScroll() {
   return (
     <>
       {loading && (
-        <p aria-live="polite" aria-busy="true">
-          Loading...
-        </p>
+        <div
+          className="flex items-center justify-center gap-3 py-8"
+          aria-live="polite"
+          aria-busy="true"
+        >
+          <LoadingSpinner size="lg" />
+          <span className="sr-only">Loading...</span>
+        </div>
       )}
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {displayedPokemons.map(name => (
@@ -85,7 +91,9 @@ const PokemonLayout: React.FC = () => {
 
   return (
     <section className="w-full p-10" aria-labelledby="homepage-title">
-      <h1 id="homepage-title">{t('title')}</h1>
+      <h1 id="homepage-title" className="text-slate-900 dark:text-slate-100">
+        {t('title')}
+      </h1>
       <PokemonListWithInfiniteScroll key={searchTerm} />
     </section>
   );

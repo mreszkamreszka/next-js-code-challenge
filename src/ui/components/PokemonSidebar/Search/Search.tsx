@@ -37,7 +37,7 @@ const Search = () => {
         type="search"
         placeholder={t('search')}
         aria-label={t('ariaSearchLabel')}
-        className="w-full rounded-xl bg-slate-100 py-3 pr-4 pl-12 focus:ring-2 focus:ring-violet-500 focus:outline-none"
+        className="w-full rounded-xl bg-slate-100 py-3 pr-4 pl-12 text-slate-900 placeholder-slate-500 focus:ring-2 focus:ring-violet-500 focus:outline-none dark:bg-slate-700 dark:text-slate-100 dark:placeholder-slate-400"
         value={inputValue}
         onChange={event => setInputValue(event.target.value)}
       />

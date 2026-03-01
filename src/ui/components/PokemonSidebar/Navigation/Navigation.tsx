@@ -33,7 +33,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
           className={`flex w-full items-center gap-3 rounded-sm px-4 py-3 transition ${
             pathname === link.href
               ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md'
-              : 'text-gray-600 hover:bg-slate-100'
+              : 'text-gray-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-700'
           }`}
           onClick={onNavigate}
         >
