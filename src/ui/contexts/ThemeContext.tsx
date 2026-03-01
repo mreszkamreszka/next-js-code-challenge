@@ -39,13 +39,11 @@ function getStoredTheme(): Theme | null {
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('light');
   const initializedRef = useRef(false);
-
-  /* eslint-disable react-hooks/set-state-in-effect -- theme sync from script/localStorage */
   useEffect(() => {
     if (!initializedRef.current) {
       const stored = getStoredTheme();
       const resolved = stored ?? getSystemTheme();
-      setThemeState(resolved);
+      queueMicrotask(() => setThemeState(resolved));
       initializedRef.current = true;
       return;
     }
@@ -57,7 +55,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
     localStorage.setItem(STORAGE_KEY, theme);
   }, [theme]);
-  /* eslint-enable react-hooks/set-state-in-effect */
 
   const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);
